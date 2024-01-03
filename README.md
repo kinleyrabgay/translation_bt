@@ -1,6 +1,4 @@
-# translation_bt
-
-A new Flutter project.
+# Dzongkha NLP version 2.0.0
 
 ## Getting Started
 
