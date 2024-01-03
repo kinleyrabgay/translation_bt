@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:translation_bt/core/enum/enum.dart';
 
@@ -76,42 +77,44 @@ class _GenericFeatureBuilderState extends State<GenericFeatureBuilder>
                       initialSelection: FeatureLabel.speech,
                       controller: featureController,
                       requestFocusOnTap: true,
-                      label: const Text('Type'),
+                      enableFilter: false,
+                      enableSearch: false,
                       width: MediaQuery.of(context).size.width * 0.3,
-
+                      trailingIcon: const Icon(
+                        CupertinoIcons.arrow_down,
+                        size: 13,
+                      ),
+                      selectedTrailingIcon: const Icon(
+                        CupertinoIcons.arrow_up,
+                        size: 13,
+                      ),
                       onSelected: (FeatureLabel? type) {
                         setState(() {
                           selectedFeature = type;
                         });
                       },
-                      textStyle: TextStyle(fontSize: 12),
-                      // menuStyle: MenuStyle(
-                      //   backgroundColor:
-                      //       MaterialStatePropertyAll<Color>(Colors.green),
-                      //       fixedSize: MaterialStateProperty<Size>(Size.o)
-                      // ),
+                      textStyle: const TextStyle(fontSize: 10),
                       dropdownMenuEntries: FeatureLabel.values
                           .map<DropdownMenuEntry<FeatureLabel>>(
-                              (FeatureLabel type) {
-                        return DropdownMenuEntry<FeatureLabel>(
-                          value: type,
-                          label: type.label,
-                          enabled: type.label != 'Grey',
-                          // style: MenuItemButton.styleFrom(
-                          //   foregroundColor: color.color,
-                          // ),
-                        );
-                      }).toList(),
+                        (FeatureLabel type) {
+                          return DropdownMenuEntry<FeatureLabel>(
+                            value: type,
+                            label: type.label,
+                            enabled: type.label != 'Grey',
+                            style: const ButtonStyle(
+                              foregroundColor: MaterialStatePropertyAll<Color>(
+                                Colors.black54,
+                              ),
+                            ),
+                          );
+                        },
+                      ).toList(),
                     ),
                   ],
                 ),
               ),
-              const Text(
-                'Form Field',
-                style: TextStyle(
-                  fontSize: 16.0,
-                ),
-              ),
+              if (selectedFeature?.label == 'Text') Text('Hello'),
+              if (selectedFeature?.label == 'Speech') Text('Speech')
             ],
           ),
         ),
