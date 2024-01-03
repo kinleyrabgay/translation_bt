@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:translation_bt/src/home/presentation/widgets/generic_feature_builder.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class HomeView extends StatelessWidget {
@@ -10,7 +11,21 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: 'Dzongkha NLP'.text.make()),
-      body: const Text('Hello'),
+      body: const Padding(
+        padding: EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // F1
+            GenericFeatureBuilder(),
+
+            SizedBox(height: 16),
+
+            // F2
+            GenericFeatureBuilder(),
+          ],
+        ),
+      ),
     );
   }
 }
