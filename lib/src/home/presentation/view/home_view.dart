@@ -1,8 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:sliding_up_panel/sliding_up_panel.dart';
-import 'package:translation_bt/src/home/presentation/widgets/generic_feature.dart';
-import 'package:translation_bt/src/home/presentation/widgets/panel_widget.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class HomeView extends StatefulWidget {
@@ -118,7 +115,7 @@ class _HomeViewState extends State<HomeView>
                     child: Center(
                       child: Text(
                         'Container $index',
-                        style: TextStyle(color: Colors.black),
+                        style: const TextStyle(color: Colors.black),
                       ),
                     ),
                   ),

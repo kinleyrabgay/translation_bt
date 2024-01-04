@@ -9,7 +9,7 @@ class PanelWidget extends StatelessWidget {
     return ListView(
       controller: scrollController,
       padding: EdgeInsets.zero,
-      children: <Widget>[Text('Hello')],
+      children: const <Widget>[Text('Hello')],
     );
   }
 }
