@@ -1,5 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:translation_bt/src/home/presentation/widgets/generic_feature_builder.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
+import 'package:translation_bt/src/home/presentation/widgets/generic_feature.dart';
+import 'package:translation_bt/src/home/presentation/widgets/panel_widget.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class HomeView extends StatefulWidget {
@@ -69,18 +72,54 @@ class _HomeViewState extends State<HomeView>
               opacity: _opacityAnimation,
               child: SlideTransition(
                 position: _offsetAnimation,
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8.0),
-                    border: Border.all(
-                      color: Colors.grey[300]!,
+                child: GestureDetector(
+                  onTap: () {
+                    showModalBottomSheet<void>(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return Container(
+                          height: MediaQuery.of(context).size.height * 0.6,
+                          width: MediaQuery.of(context).size.width * 1.0,
+                          color: Colors.white,
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: <Widget>[
+                                    GestureDetector(
+                                      onTap: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: const Icon(
+                                        CupertinoIcons.delete,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  },
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8.0),
+                      border: Border.all(
+                        color: Colors.grey[300]!,
+                      ),
                     ),
-                  ),
-                  child: Center(
-                    child: Text(
-                      'Container $index',
-                      style: TextStyle(color: Colors.black),
+                    child: Center(
+                      child: Text(
+                        'Container $index',
+                        style: TextStyle(color: Colors.black),
+                      ),
                     ),
                   ),
                 ),
