@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class GenericFeatureBuilder extends StatelessWidget {
-  const GenericFeatureBuilder({super.key});
+class GenericFeature extends StatelessWidget {
+  const GenericFeature({super.key});
 
   @override
   Widget build(BuildContext context) {
