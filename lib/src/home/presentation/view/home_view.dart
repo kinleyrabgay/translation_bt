@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:translation_bt/core/constants/features.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class HomeView extends StatefulWidget {
@@ -16,7 +17,6 @@ class _HomeViewState extends State<HomeView>
   late AnimationController _controller;
   late Animation<Offset> _offsetAnimation;
   late Animation<double> _opacityAnimation;
-  final int col = 2;
 
   @override
   void initState() {
@@ -65,6 +65,7 @@ class _HomeViewState extends State<HomeView>
             crossAxisSpacing: 16.0,
           ),
           itemBuilder: (context, index) {
+            Feature feature = features[index];
             return FadeTransition(
               opacity: _opacityAnimation,
               child: SlideTransition(
@@ -74,56 +75,83 @@ class _HomeViewState extends State<HomeView>
                     showModalBottomSheet<void>(
                       context: context,
                       builder: (BuildContext context) {
-                        return Container(
-                          height: MediaQuery.of(context).size.height * 0.6,
-                          width: MediaQuery.of(context).size.width * 1.0,
-                          color: Colors.white,
-                          child: Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: <Widget>[
-                                    GestureDetector(
-                                      onTap: () {
-                                        Navigator.pop(context);
-                                      },
-                                      child: const Icon(
-                                        CupertinoIcons.delete,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
+                        return modelInfo(context, feature);
                       },
                     );
                   },
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8.0),
-                      border: Border.all(
-                        color: Colors.grey[300]!,
-                      ),
-                    ),
-                    child: Center(
-                      child: Text(
-                        'Container $index',
-                        style: const TextStyle(color: Colors.black),
-                      ),
-                    ),
-                  ),
+                  child: featureCard(context, feature),
                 ),
               ),
             );
           },
-          itemCount: 4, // Total number of containers
+          itemCount: features.length, // Total number of features
+        ),
+      ),
+    );
+  }
+
+  Container modelInfo(BuildContext context, Feature feature) {
+    return Container(
+      height: MediaQuery.of(context).size.height * 0.6,
+      width: MediaQuery.of(context).size.width * 1.0,
+      color: Colors.white,
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Icon(
+                    CupertinoIcons.delete,
+                  ),
+                )
+              ],
+            ),
+            Text('Source: ${feature.src}'),
+            Text('Destination: ${feature.dest}'),
+            Text('Description: ${feature.desc}'),
+            Image.asset(
+              feature.imgUrl,
+              width: 30,
+              height: 30,
+              fit: BoxFit.cover,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Container featureCard(BuildContext context, Feature feature) {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8.0),
+        border: Border.all(
+          color: Colors.grey[300]!,
+        ),
+      ),
+      child: Center(
+        child: Column(
+          children: [
+            Text('Source: ${feature.src}'),
+            Text('Destination: ${feature.dest}'),
+            Text('Description: ${feature.desc}'),
+            Text('ImgUrl: ${feature.imgUrl}'),
+            Image.asset(
+              feature.imgUrl,
+              width: 30,
+              height: 30,
+              fit: BoxFit.cover,
+            ),
+          ],
         ),
       ),
     );
